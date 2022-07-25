@@ -16,9 +16,11 @@
 ## 🚀 Getting Started
 
 ```sh
-git clone https://github.com/eritislami/evobot.git
-cd evobot
+git clone https://github.com/L-in-LA/itoka-music-bot.git
+cd itoka-music-bot
 npm install
+npm install nodemon -g
+nodemon
 ```
 
 After installation finishes follow configuration instructions then run `npm run start` to start the bot.
