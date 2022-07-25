@@ -4,9 +4,9 @@
 
 ![logo](https://repository-images.githubusercontent.com/186841818/8aa95700-7730-11e9-84be-e80f28520325)
 
-# 🤖 EvoBot (Discord Music Bot)
+# 🤖 Itoka NFT Music Bot
 
-> EvoBot is a Discord Music Bot built with TypeScript, discord.js & uses Command Handler from [discordjs.guide](https://discordjs.guide)
+> Itoka NFT Music Bot is a Discord Music Bot built with TypeScript, discord.js & uses Command Handler from [discordjs.guide](https://discordjs.guide)
 
 ## Requirements
 
@@ -21,7 +21,7 @@ cd itoka-music-bot
 npm install
 npm install nodemon -g
 nodemon
-```
+```g
 
 After installation finishes follow configuration instructions then run `npm run start` to start the bot.
 
@@ -43,21 +43,13 @@ Copy or Rename `config.json.example` to `config.json` and fill out the values:
 }
 ```
 
-## 🐬 Docker Configuration
-
-For those who would prefer to use our [Docker container](https://hub.docker.com/repository/docker/eritislami/evobot), you may provide values from `config.json` as environment variables.
-
-```shell
-docker run -e "TOKEN=<discord-token>" eritislami/evobot
-```
-
 ## 📝 Features & Commands
 
 > Note: The default prefix is '!'
 
-- 🎶 Play music from YouTube via url
+- 🎶 Play music from Itoka NFT collection via url
 
-`!play https://www.youtube.com/watch?v=GLvohMXgcBo`
+`!play https://5avu2-qaaaa-aaaai-acjya-cai.raw.ic0.app/audio/6_short.mp3`
 
 - 🔎 Play music from YouTube via search query
 
