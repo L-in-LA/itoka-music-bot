@@ -19,7 +19,7 @@ cd itoka-music-bot
 npm install
 npm install nodemon -g
 nodemon
-```g
+```
 
 After installation finishes follow configuration instructions then run `npm run start` to start the bot.
 
