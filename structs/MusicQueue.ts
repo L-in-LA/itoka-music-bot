@@ -144,6 +144,7 @@ export class MusicQueue {
       const resource = await next.makeResource();
 
       this.resource = resource!;
+      console.log("this.message: ", this.message.author)
       this.player.play(this.resource);
       this.resource.volume?.setVolumeLogarithmic(this.volume / 100);
     } catch (error) {
