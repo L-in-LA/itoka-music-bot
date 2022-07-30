@@ -19,6 +19,8 @@ export class Bot {
   public constructor(public readonly client: Client) {
     this.client.login(config.TOKEN);
 
+    // voiceStateUpdate
+
     this.client.on("ready", () => {
       console.log(`${this.client.user!.username} ready!`);
       client.user!.setActivity(`${this.prefix}help and ${this.prefix}play`, { type: "LISTENING" });
