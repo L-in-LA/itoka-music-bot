@@ -3,7 +3,6 @@ import { Message, MessageEmbed } from "discord.js";
 import { bot } from "../index";
 import { MusicQueue } from "../structs/MusicQueue";
 import { Playlist } from "../structs/Playlist";
-import { Song } from "../structs/Song";
 import { i18n } from "../utils/i18n";
 
 export default {
@@ -30,46 +29,39 @@ export default {
     let playlist;
 
     try {
-      playlist = await Playlist.from(args[0], args.join(" "));
+      playlist = await Playlist.from();
     } catch (error) {
       console.error(error);
 
       return message.reply(i18n.__("playlist.errorNotFoundPlaylist")).catch(console.error);
     }
 
-    if (queue) {
-      queue.songs.push(...playlist.videos);
-    } else {
-      const newQueue = new MusicQueue({
-        message,
-        connection: joinVoiceChannel({
-          channelId: channel.id,
-          guildId: channel.guild.id,
-          adapterCreator: channel.guild.voiceAdapterCreator as DiscordGatewayAdapterCreator
-        })
-      });
+    const newQueue = new MusicQueue({
+      message,
+      connection: joinVoiceChannel({
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: channel.guild.voiceAdapterCreator as DiscordGatewayAdapterCreator
+      })
+    });
+    bot.queues.set(message.guild!.id, newQueue);
 
-      bot.queues.set(message.guild!.id, newQueue);
-      newQueue.enqueue(playlist.videos[0]);
+    let songs = playlist.songs;
+    let songIndex = 0;
+
+    while (songs.length!=0) {
+      newQueue.enqueue(songs[songIndex]);
+      await new Promise(f => setTimeout(f, 60));
+      songIndex++;
+      if (songIndex == songs.length) {
+        songIndex = 0;
+        songs.sort(() => (Math.random() > .10) ? 1 : -1);
+      }
     }
-
-    let playlistEmbed = new MessageEmbed()
-      .setTitle(`${playlist.data.title}`)
-      .setDescription(
-        playlist.videos.map((song: Song, index: number) => `${index + 1}. ${song.title}`).join("\n")
-      )
-      .setURL(playlist.data.url!)
-      .setColor("#F8AA2A")
-      .setTimestamp();
-
-    if (playlistEmbed.description!.length >= 2048)
-      playlistEmbed.description =
-        playlistEmbed.description!.substr(0, 2007) + i18n.__("playlist.playlistCharLimit");
 
     message
       .reply({
-        content: i18n.__mf("playlist.startedPlaylist", { author: message.author }),
-        embeds: [playlistEmbed]
+        content: i18n.__mf("playlist.startedPlaylist", { author: message.author })
       })
       .catch(console.error);
   }
