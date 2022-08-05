@@ -1,5 +1,9 @@
 import { Client, Intents } from "discord.js";
 import { Bot } from "./structs/Bot";
+import { config } from "./utils/config";
+
+import dynamoose from "dynamoose";
+dynamoose.aws.sdk.config.update(config.AWS);
 
 export const bot = new Bot(
   new Client({

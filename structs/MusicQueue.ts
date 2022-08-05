@@ -19,6 +19,8 @@ import { config } from "../utils/config";
 import { i18n } from "../utils/i18n";
 import { canModifyQueue } from "../utils/queue";
 import { Song } from "./Song";
+// connect to smart contract
+// const { idlFactory: idlFactory_nft } = require("../declarations/itoka_nft.did");
 
 const wait = promisify(setTimeout);
 
@@ -121,9 +123,9 @@ export class MusicQueue {
       )
         return;
 
-      this.connection.destroy();
-
-      !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
+      // this.connection.destroy();
+      !config.PRUNING;
+      // !config.PRUNING && this.textChannel.send(i18n.__("play.leaveChannel"));
     }, 100);
   }
 
@@ -144,7 +146,7 @@ export class MusicQueue {
       const resource = await next.makeResource();
 
       this.resource = resource!;
-      console.log("this.message: ", this.message.author)
+      // console.log("this.message: ", this.message.author);
       this.player.play(this.resource);
       this.resource.volume?.setVolumeLogarithmic(this.volume / 100);
     } catch (error) {
@@ -158,12 +160,14 @@ export class MusicQueue {
 
   private async sendPlayingMessage(newState: any) {
     const song = (newState.resource as AudioResource<Song>).metadata;
+    console.log(song);
 
     let playingMessage: Message;
 
     try {
-      playingMessage = await this.textChannel.send((newState.resource as AudioResource<Song>).metadata.startMessage());
-
+      playingMessage = await this.textChannel.send({
+        embeds: [(newState.resource as AudioResource<Song>).metadata.startMessage()]
+      });
       await playingMessage.react("⏭");
       await playingMessage.react("⏯");
       await playingMessage.react("🔇");

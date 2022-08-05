@@ -1,4 +1,4 @@
-export const idlFactory = ({ IDL }) => {
+const idlFactory = ({ IDL }) => {
   const GenericValue = IDL.Rec();
   const CustodianSetupReceipt = IDL.Variant({
     Ok: IDL.Text,
@@ -273,8 +273,13 @@ export const idlFactory = ({ IDL }) => {
   });
   return NFToken;
 };
-export const init = ({ IDL }) => {
-  return [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Principal, IDL.Opt(IDL.Nat)];
-};
+// export const init = ({ IDL }) => {
+//   return [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Principal, IDL.Opt(IDL.Nat)];
+// };
 
 module.exports = { idlFactory };
+
+// exports.default = idlFactory;
+// module.exports = { idlFactory };
+
+// export { idlFactory };
